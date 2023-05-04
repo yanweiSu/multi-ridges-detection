@@ -115,6 +115,10 @@ void mexFunction(int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[]) {
             + INIT * (lambda1 * (j1+lowIdx-init[0]) * (j1+lowIdx-init[0])\
             + lambda2 * ((j2+fundM[j1]-bw2)-init[1]) * ((j2+fundM[j1]-bw2)-init[1])\
             + mu1 * fabs(multi*tic[j1+lowIdx]-tic[j2+fundM[j1]-bw2]) * fabs(multi*tic[j1+lowIdx]-tic[j2+fundM[j1]-bw2]));
+            // FUND: Energy weighting of the fundamental component (default: 1)
+            // INIT: Indicate whether there is an initial point of the curves
+            // lambdas: smoothness penalties
+            // mus: similarities penalties
         }
     }
 
@@ -135,6 +139,8 @@ void mexFunction(int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[]) {
                         + lambda1 * (k1-j1) * (k1-j1)\
                         + lambda2 * ((k2+k2val)-j2val) * ((k2+k2val)-j2val)\
                         + mu1 * fabs(multi*k1freq-k2freq) * fabs(multi*k1freq-k2freq);
+                        // lambdas: smoothness penalties
+                        // mus: similarities penalties
                         if(tmp < minval)
                             minval = tmp;
                     }
