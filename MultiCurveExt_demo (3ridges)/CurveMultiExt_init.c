@@ -126,6 +126,9 @@ void mexFunction(int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[]) {
                  + lambda3 * ((j3+fundM[bw1+j1]-bw3)-init[2]) * ((j3+fundM[bw1+j1]-bw3)-init[2])\
                  + mu1 * fabs(multi1*tic[j1+lowIdx]-tic[j2+fundM[j1]-bw2]) * fabs(multi1*tic[j1+lowIdx]-tic[j2+fundM[j1]-bw2])\
                  + mu2 * fabs(multi2*tic[j1+lowIdx]-tic[j3+fundM[bw1+j1]-bw3]) * fabs(multi2*tic[j1+lowIdx]-tic[j3+fundM[bw1+j1]-bw3]));
+                // INIT: Indicate if there is an initial point of the curves
+                // lambdas: smoothness penalties
+                // mus: similarity penalties 
             }
         }
     }
@@ -153,7 +156,9 @@ void mexFunction(int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[]) {
                                  + lambda3 * ((k3+k3val)-j3val) * ((k3+k3val)-j3val)\
                                  + mu1 * fabs(multi1*k1freq-k2freq) * fabs(multi1*k1freq-k2freq)\
                                  + mu2 * fabs(multi2*k1freq-tic[k3+k3val-bw3]) * fabs(multi2*k1freq-tic[k3+k3val-bw3]);
-                                if(tmp < minval)
+                                // lambdas: smoothness penalties
+                                // mus: similarity penalties
+                                if(tmp < minval) // Records the optimal answer at this position
                                     minval = tmp;
                             }
                         }
