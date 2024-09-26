@@ -3,11 +3,11 @@ clear;% close all;
 load('./sampleTFR1.mat');
 % load('./sampleTFR2.mat');
 
-%%
 fs = basicTF.fs;
 fr = basicTF.fr;
 cALL = [];
 
+%%
 % Partition the TFR in time axis
 tt = 0:fs:size(tfrsq,2);
 % The first part's searching band (wider)

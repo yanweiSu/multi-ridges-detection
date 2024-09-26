@@ -1,7 +1,7 @@
 clear; close all;
 
-load('./sampleTFR1.mat');
-% load('./sampleTFR2.mat');
+% load('./sampleTFR1.mat');
+load('./sampleTFR2.mat');
 
 %% MultiCurve generic(2)
 fs = basicTF.fs;

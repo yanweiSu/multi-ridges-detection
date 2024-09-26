@@ -41,10 +41,12 @@ fs = fs/dws;
 
 %% First get the fundamental component: TF pararmeters setting and prepare the TFR
 fr = 0.01;
-win = fs*8+1;
+win = fs*5+1;
 hop = 1;
 HighFreq = 10/fs;
 LowFreq = 0.1/fs;
+% [b, a] = butter(2, [0.3, 15] / (fs / 2));
+% sig = filtfilt(b, a, sig);
 [~, ~, tfrsq, ~, tfrsqtic] = ConceFT_sqSTFT_C(sig, LowFreq, HighFreq, fr/fs, hop, win, 1, 5, 1, 1, 0);
 
 % Amplitude (for reconstruction)
@@ -59,6 +61,7 @@ hold on;
 % plot((0:length(sig)-1)./fs, sig, 'LineWidth', 1.2);
 ylim([-3 3]*1e4)
 hold off;
+xlim([3 10])
 
 % TFR plot
 figure; set(gcf,'Position',[100 50 1000 700]);
@@ -68,6 +71,7 @@ axis xy; colormap(1-gray);% colorbar
 xlabel('time(sec)','FontSize',20); ylabel('frequency(Hz)','FontSize',20);
 ax = gca; ax.FontSize = 20;
 title(['2ndSST: window = ',num2str((win-1)/fs),' sec']);
+xlim([3 10])
 
 % Get fundamental's phase [phi_fund]
 idx0 = find(tfrsqtic*fs>0.5 & tfrsqtic*fs<1.9);
@@ -198,6 +202,7 @@ for k = 1:numH
     hold off;
 end
 title('Warped TFR');
+xlim([3 10])
 
 %% Recon by SAMD and superposition
 fundAM = []; fundFM = []; recon = []; super = [];
@@ -231,6 +236,7 @@ ax = gca; ax.FontSize = 16;
 % set(gca, 'XTickLabel', []); set(gca, 'YTickLabel', []);
 ylim([-3 3]*1e4)
 title('Recon')
+xlim([3 10])
 
 % figure;
 % subplot(4,1,1); plot(tt./fs, sig(tt));

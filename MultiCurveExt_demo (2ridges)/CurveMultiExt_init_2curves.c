@@ -78,7 +78,6 @@ void mexFunction(int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[]) {
     // printf("Multiple is %.1f\n", multi);
 
     Energy = (double *)mxMalloc(sizeof(double)*NRow*NCol);
-    FVal = (double *)mxMalloc(sizeof(double)*NRow*(bw1)*(2*bw2));
     Freq0 = (int *)mxMalloc(sizeof(int)*NRow);
     Freq1 = (int *)mxMalloc(sizeof(int)*NRow);
 
@@ -88,12 +87,20 @@ void mexFunction(int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[]) {
     double freqVal;
     for (int j1 = 0; j1 < bw1; ++j1) {
         freqVal = tic[lowIdx+j1]*multi;
+        fundM[j1] = 0;
         for (k = Ntic-1; k >= 1; --k) {
             // search for the true indices for multiple frequency in tfrtic
-            if (tic[k]>=freqVal && tic[k-1]<freqVal)
+            if (tic[k]>=freqVal && tic[k-1]<freqVal) {
                 fundM[j1] = k;
+                break;
+            }
         }
     }
+    if (bw2 > fundM[0]) {
+        bw2 = fundM[0];
+    }
+    FVal = (double *)mxMalloc(sizeof(double)*NRow*(bw1)*(2*bw2));
+
 
     // TFR matrix
     for (i=0; i<NRow; ++i) {
